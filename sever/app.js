@@ -5,7 +5,6 @@ const session = require('express-session');
 const Varificacion = require('./iniciosesion/infrastructure/middleware/isAuthenticated');
 
 // Carga de los Routers
-const routerInicioSesion = require('./iniciosesion/application/routes/inicioSesionRouter');
 const routerUsusarios = require('./usuarios/application/routes/userRoutes');
 
 // Inicializar la app Express
@@ -33,7 +32,6 @@ app.use(passport.session());
 
 // Rutas
 app.use("/usuarios", routerUsusarios); // Rutas para los usuarios
-app.use("/inicioSesion", routerInicioSesion); // Rutas de inicio de sesión
 
 // Configuración del servidor
 const config = {
