@@ -1,0 +1,23 @@
+{
+  "name": "push_up_registro_actividades_diarias",
+  "description": "El proyecto **API de Registro de Actividades Diarias** tiene como objetivo crear una herramienta eficiente y flexible que permita a los usuarios organizar, registrar, y seguir su progreso en diversas actividades cotidianas. Esta API servirá como un sistema de gestión de tareas que incluye funcionalidades clave como el seguimiento de hábitos, establecimiento de metas, y generación de reportes de productividad. El enfoque principal es proporcionar a los usuarios una plataforma que les ayude a gestionar tanto sus tareas personales como profesionales, mejorando su organización y permitiendo un control detallado sobre su tiempo y prioridades",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node --watch --env-file .env sever/app.js",
+    "format": "prettier --write *"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0"
+  },
+  "devDependencies": {
+  }
+}
