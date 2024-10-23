@@ -25,13 +25,20 @@ class UserController {
       // Crear el usuario
       const user = await this.insUserService.createUser(req.body);
 
-      // Responder con éxito
-      res.status(201).json(user);
+      // Responder con éxito usando el formato estándar
+      res.status(201).json({
+        status: 201,
+        message: "Usuario creado exitosamente",
+        data: user // Aquí se enviaría el objeto del usuario creado
+      });
     } catch (error) {
       // console.error("Error:", error);
 
       const errorObj = JSON.parse(error.message);
-      res.status(errorObj.status).json({ message: errorObj.message });
+      res.status(errorObj.status).json({
+        status: errorObj.status,
+        message: errorObj.message
+      });
     }
   }
   // obtener un Usuario
@@ -45,7 +52,10 @@ class UserController {
       res.status(200).json(user);
     } catch (error) {
       const errorObj = JSON.parse(error.message);
-      res.status(errorObj.status).json({ message: errorObj.message });
+      res.status(errorObj.status).json({
+        status: errorObj.status,
+        message: errorObj.message
+      });
     }
   }
   // actualizar un Usuario
@@ -77,29 +87,6 @@ class UserController {
       res.status(errorObj.status).json({ message: errorObj.message });
     }
   }
-
-  // async verifyUser(req, res) {
-  //   try {
-  //     const errors = validationResult(req);
-  //     if (!errors.isEmpty())
-  //       return res.status(400).json({ errors: errors.array() });
-  //     const token = await this.insUserService.getUserbyNickAndPassword(res.body);
-  //     req.session.token = `Bearer ${token}`;
-  //     res.status(200).json(token);
-  //   } catch (error) {
-  //     const errorObj = JSON.parse(error.message);
-  //     res.status(errorObj.status).json({ message: errorObj.message });
-  //   }
-  // }
-
-  // async searchUsers(req, res) {
-  //   try {
-  //     const users = await this.insUserService.searchUsersByName(req.query.name);
-  //     res.json(users);
-  //   } catch (error) {
-  //     res.status(500).json({ message: error.message });
-  //   }
-  // }
 }
 
 module.exports = UserController;

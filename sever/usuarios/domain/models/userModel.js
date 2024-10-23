@@ -13,19 +13,29 @@ class User {
       const res = await collection.insertMany([userData]);
       return res;
     } catch (error) {
-      throw new Error(`Error al insertar usuario: ${error.message}`);
+      throw new Error(
+        JSON.stringify({
+          status: 503,
+          message: `Error en modelo al crear usuario: ${error.message}`
+        })
+      );
     } finally {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
   }
-  async findById(id) {
+  async getById(id) {
     try {
       await this.dbConnection.connectOpen(); // Abrir la conexión a la BD
       const collection = this.dbConnection.db.collection("usuario");
       const [res] = await collection.find({ _id: new ObjectId(id) }).toArray();
       return res;
     } catch (error) {
-      throw new Error(`Error al insertar usuario: ${error.message}`);
+      throw new Error(
+        JSON.stringify({
+          status: 503,
+          message: `Error en modelo al Encontrar usuario: ${error.message}`
+        })
+      );
     } finally {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
@@ -42,7 +52,10 @@ class User {
       return res;
     } catch (error) {
       throw new Error(
-        JSON.stringify({ status: 500, message: "Error updating user" })
+        JSON.stringify({
+          status: 503,
+          message: `Error en modelo al actualizar usuario: ${error.message}`
+        })
       );
     } finally {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
@@ -56,20 +69,15 @@ class User {
       return res;
     } catch (error) {
       throw new Error(
-        JSON.stringify({ status: 500, message: "Error updating user" })
+        JSON.stringify({
+          status: 503,
+          message: `Error en modelo al Eliminar un usuario: ${error.message}`
+        })
       );
     } finally {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
   }
-  // async aggregate(data) {
-  //   let obj = insConnectToDatabase.instanceConnect;
-  //   const collection = obj.db.collection('usuario');
-  //   // console.log('querry: ',[...data]);
-  //   const res = await collection.aggregate([...data]).toArray();
-  //   // console.log(res);
-  //   return res;
-  // }
 }
 
 module.exports = User;

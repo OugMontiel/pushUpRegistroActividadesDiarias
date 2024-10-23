@@ -9,6 +9,10 @@ const router = express.Router(); // Crea un enrutador de Express que manejará l
 const insUserController = new UserController(); // Instancia el controlador de usuarios
 const insUserValidator = new UserValidator(); // Instancia el validador de usuarios
 
+// Define la ruta para crear un nuevo usuario.
+router.post('/', insUserValidator.validateUserData(), (req, res) =>
+  insUserController.createUser(req, res)
+);
 
 router.get('/', (req, res) => {
   res.send('¡Bienvenido a ruraqMaki! User');
@@ -19,10 +23,6 @@ router.get('/:id', insUserValidator.validateUserId(), (req, res) =>
   insUserController.getUser(req, res)
 );
 
-// Define la ruta para crear un nuevo usuario.
-router.post('/', insUserValidator.validateUserData(), (req, res) =>
-  insUserController.createUser(req, res)
-);
 
 // Define la ruta para actualizar un usuario por ID.
 router.put('/:id', insUserValidator.validateUserUpdateById(), (req, res) =>
