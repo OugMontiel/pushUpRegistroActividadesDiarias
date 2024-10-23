@@ -16,27 +16,34 @@ class InicioSesionRepository {
       }
       // console.log('resultado Encontrado', usuario.length);
       if (usuario.length === 0) {
-        throw new Error(JSON.stringify({ status: 404, message: 'Invalid credentials' }));
+        return res.status(404).json({
+          status: 404,
+          message: "Credenciales inválidas"
+        });
       }
 
       // validación usuarios duplicados
       if (usuario.length > 1) {
-        throw new Error(
-          JSON.stringify({
-            status: 500,
-            message: 'Multiple users found with the same email. Contact support.',
-          })
-        );
+        return res.status(500).json({
+          status: 500,
+          message: "Se encontraron múltiples usuarios con el mismo correo electrónico. Contacta al soporte."
+        });
       }
 
       // Si se encontró un usuario, devolvemos el primer (y único) resultado en el array
       return usuario;
     } catch (error) {
       if (error.message) {
-        throw new Error(error.message); // Re-lanzamos el error original
+        return res.status(500).json({
+          status: 500,
+          message: error.message
+        });
       } else {
         // Si ocurre otro tipo de error, lanzamos uno genérico
-        throw new Error(JSON.stringify({ status: 400, message: 'Error in auth repository' }));
+        return res.status(400).json({
+          status: 400,
+          message: "Error en el repositorio de autenticación"
+        });
       }
     }
   }

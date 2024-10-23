@@ -13,7 +13,10 @@ class inicioSesionModel {
       // console.log('en modelo',res);
       return res;
     } catch (error) {
-      throw new Error(`Error al insertar usuario: ${error.message}`);
+      return res.status(500).json({
+        status: 500,
+        message: `Error al optener el usuario: ${error.message}`
+      });
     } finally {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
