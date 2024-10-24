@@ -24,6 +24,7 @@ class User {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
   } 
+  //Crear un Usuario
   async createUser(userData) {
     try {
       await this.dbConnection.connectOpen(); // Abrir la conexión a la BD
@@ -41,6 +42,7 @@ class User {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
   }
+  //Obtener un Usuario por Id
   async getById(id) {
     try {
       await this.dbConnection.connectOpen(); // Abrir la conexión a la BD
@@ -58,6 +60,7 @@ class User {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
   }
+  //Actualizar un Usuario por Id
   async updateById(id, updateData) {
     try {
       await this.dbConnection.connectOpen(); // Abrir la conexión a la BD
@@ -79,6 +82,7 @@ class User {
       await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
     }
   }
+  //Eliminar un Usuario por Id
   async deleteUser(id) {
     try {
       await this.dbConnection.connectOpen(); // Abrir la conexión a la BD

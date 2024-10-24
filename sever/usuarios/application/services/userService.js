@@ -6,15 +6,12 @@ class UserService {
   constructor() {
     this.userModel = new UserModel();
   }
-  async prueva(req, res) {
-    return { message: "¡entrando a userModel de ruraqMaki!" };
-  }
   // obtener todos los Usuarios 
   async getAllUsers() {
     try {
       // retorna de una todos los Usuarios
       return  await this.userModel.getAllUsers();
-      
+
     } catch (error) {
       // console.error("Error:", error);
       throw new Error(
@@ -25,11 +22,11 @@ class UserService {
       );
     }  
   }
+  // crear un Usuario
   async createUser(data) {
     try {
-      // console.log('data.password',data);
-
       // Encriptar la contraseña
+      // console.log('data.password',data);
       const password = await bcrypt.hash(data.password, 5);
       
       // Reemplazar la contraseña original con el hash
@@ -37,6 +34,7 @@ class UserService {
       delete data.password;
       
       return await this.userModel.createUser(data);
+
     } catch (error) {
       // console.error("Error:", error);
       throw new Error(
@@ -47,8 +45,11 @@ class UserService {
       );
     }
   }
+  //Obtener un Usuario por Id 
   async getUserById(id) {
     const user = await this.userModel.getById(id);
+
+    // Si Es folse es por que no se encontro Usuario
     if (!user) {
       throw new Error(
         JSON.stringify({ 
@@ -57,10 +58,17 @@ class UserService {
         })
       );
     }
+
+    //retorna el Usuario
     return user;
+
   }
+
+  // Actualizar Usuario
   async updateUser(id, data) {
     const updatedUser = await this.userModel.updateById(id, data);
+
+    // si es falso, no entontro Usuario 
     if (!updatedUser) {
       throw new Error(
         JSON.stringify({ 
@@ -81,6 +89,7 @@ class UserService {
     }
     return updatedUser;
   }
+  //Borrar o eliminar un usuario 
   async deleteUser(id) {
     const deletedUser = await this.userModel.deleteUser(id);
     if (!deletedUser) {

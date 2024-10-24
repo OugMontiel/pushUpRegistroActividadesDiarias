@@ -44,14 +44,19 @@ class UserController {
   //obtener todos los Usuarios 
   async getAllUsers(req, res) {
     try {
+      // Validar si hay errores
+      if (!this.validarExpres(req, res)) return;
+
       // Obtener todos los Usuarios
       const users = await this.insUserService.getAllUsers();
+
       // Responder con éxito usando el formato estándar
       res.status(201).json({
         status: 201,
         message: "Todos los Usuarios",
         data: users // Aquí se enviaría el objeto del usuario creado
       });
+
     } catch (error) {
       // console.error("Error:", error);
 
@@ -67,10 +72,17 @@ class UserController {
     try {
       // Validar si hay errores
       if (!this.validarExpres(req, res)) return;
+
       // Optner el Usuario
       const user = await this.insUserService.getUserById(req.params.id);
+
       // respoder con exito
-      res.status(200).json(user);
+      res.status(200).json({
+        status: 200,
+        message: "Usuario por Id",
+        data: user // Aquí se enviaría el objeto del usuario creado
+      });
+
     } catch (error) {
       const errorObj = JSON.parse(error.message);
       res.status(errorObj.status).json({
@@ -84,25 +96,37 @@ class UserController {
     try {
       // Validar si hay errores
       if (!this.validarExpres(req, res)) return;
+
       // Actualizar el Usuario
       const user = await this.insUserService.updateUser(req.params.id, req.body);
+
       // Responder con éxito
-      res.status(200).json(user);
+      res.status(200).json({
+        status: 200,
+        message: "Usuarios actualizado",
+        data: user // Aquí se enviaría el objeto del usuario creado
+      });
+
     } catch (error) {
       const errorObj = JSON.parse(error.message);
       res.status(errorObj.status).json({ message: errorObj.message });
     }
   }
+  // eliminar un Usuario
   async deleteUser(req, res) {
     try {
       // Validar si hay errores
       if (!this.validarExpres(req, res)) return;
+
       // Borrar el Usuario
       const user = await this.insUserService.deleteUser(req.params.id);
+
       // Este código indica que la solicitud fue exitosa y que el recurso ha sido eliminado, pero no hay contenido adicional para enviar en la respuesta.
-      res.status(204).json(user);
-      // En algunos casos, 200 OK también puede ser utilizado si la respuesta incluye información adicional o confirmación sobre la eliminación. Sin embargo, 204 No Content es la opción más estándar para indicar que un recurso ha sido eliminado y no hay contenido adicional en la respuesta.
-      // res.status(200).json(user);
+      res.status(204).json({
+        status: 204,
+        message: "Usuarios eliminado",
+      });
+
     } catch (error) {
       const errorObj = JSON.parse(error.message);
       res.status(errorObj.status).json({ message: errorObj.message });
