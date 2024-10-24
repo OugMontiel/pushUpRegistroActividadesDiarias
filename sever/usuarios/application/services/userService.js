@@ -66,6 +66,7 @@ class UserService {
 
   // Actualizar Usuario
   async updateUser(id, data) {
+    // Actualizar el usuario
     const updatedUser = await this.userModel.updateById(id, data);
 
     // si es falso, no entontro Usuario 
@@ -96,7 +97,7 @@ class UserService {
       throw new Error(
         JSON.stringify({ 
           status: 404, 
-          message: "Error En el service usuario no Eliminado" 
+          message: "Error En el service, usuario no Eliminado" 
         })
       );
     }

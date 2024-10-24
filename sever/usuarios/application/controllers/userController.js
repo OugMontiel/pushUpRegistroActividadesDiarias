@@ -109,7 +109,10 @@ class UserController {
 
     } catch (error) {
       const errorObj = JSON.parse(error.message);
-      res.status(errorObj.status).json({ message: errorObj.message });
+      res.status(errorObj.status).json({
+        status: errorObj.status,
+        message: errorObj.message
+      });
     }
   }
   // eliminar un Usuario
@@ -125,11 +128,15 @@ class UserController {
       res.status(204).json({
         status: 204,
         message: "Usuarios eliminado",
+        data: user // Aqui se envia el ok del borrado 
       });
 
     } catch (error) {
       const errorObj = JSON.parse(error.message);
-      res.status(errorObj.status).json({ message: errorObj.message });
+      res.status(errorObj.status).json({
+        status: errorObj.status,
+        message: errorObj.message
+      });
     }
   }
 }
