@@ -25,12 +25,13 @@ router.post('/sessionLogin', inicioSesionValidator.validatorSessionLogin(), (req
 );
 
 // Ruta para validar la sesión
-router.get('/check', (req, res) => {
+router.get('/validarSesion', (req, res) => {
   inicioSesionController.checkSession(req, res);
 });
 
+//ruta para optener todos los Usuarios
 router.get('/', (req, res) => {
-  res.send('¡Bienvenido a ruraqMaki! User');
+  insUserController.getAllUsers(req, res)
 });
 
 // Define la ruta para obtener un usuario por ID.

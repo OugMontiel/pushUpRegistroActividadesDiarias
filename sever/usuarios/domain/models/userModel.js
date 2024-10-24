@@ -6,6 +6,24 @@ class User {
     // Crear una única instancia de conexión a la base de datos
     this.dbConnection = new ConnectToDatabase();
   }
+  //obtener todo los Usuarios
+  async getAllUsers(){
+    try {
+      await this.dbConnection.connectOpen(); // Abrir la conexión a la BD
+      const collection = this.dbConnection.db.collection("usuario");
+      const res = await collection.find().toArray();
+      return res;
+    } catch (error) {
+      throw new Error(
+        JSON.stringify({
+          status: 503,
+          message: `Error en modelo al encontrar todos los usuario: ${error.message}`
+        })
+      );
+    } finally {
+      await this.dbConnection.connectClose(); // Cerrar la conexión en el bloque finally
+    }
+  } 
   async createUser(userData) {
     try {
       await this.dbConnection.connectOpen(); // Abrir la conexión a la BD

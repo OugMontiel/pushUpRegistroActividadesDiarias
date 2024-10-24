@@ -41,6 +41,27 @@ class UserController {
       });
     }
   }
+  //obtener todos los Usuarios 
+  async getAllUsers(req, res) {
+    try {
+      // Obtener todos los Usuarios
+      const users = await this.insUserService.getAllUsers();
+      // Responder con éxito usando el formato estándar
+      res.status(201).json({
+        status: 201,
+        message: "Todos los Usuarios",
+        data: users // Aquí se enviaría el objeto del usuario creado
+      });
+    } catch (error) {
+      // console.error("Error:", error);
+
+      const errorObj = JSON.parse(error.message);
+      res.status(errorObj.status).json({
+        status: errorObj.status,
+        message: errorObj.message
+      });
+    }
+  }
   // obtener un Usuario
   async getUser(req, res) {
     try {

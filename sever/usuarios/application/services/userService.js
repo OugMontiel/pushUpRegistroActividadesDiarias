@@ -9,6 +9,22 @@ class UserService {
   async prueva(req, res) {
     return { message: "¡entrando a userModel de ruraqMaki!" };
   }
+  // obtener todos los Usuarios 
+  async getAllUsers() {
+    try {
+      // retorna de una todos los Usuarios
+      return  await this.userModel.getAllUsers();
+      
+    } catch (error) {
+      // console.error("Error:", error);
+      throw new Error(
+        JSON.stringify({ 
+          status: 500, 
+          message: "Error En el service al otener todos el usuario" 
+        })
+      );
+    }  
+  }
   async createUser(data) {
     try {
       // console.log('data.password',data);
